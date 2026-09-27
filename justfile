@@ -27,6 +27,11 @@ stub path:
 revisit path:
     uv run {{ justfile_directory() }}/scripts/exercise.py revisit {{ path }}
 
+# Stop the clock: attempting -> solved; record minutes, solved_cold, and the next revisit date
+[no-cd]
+done path="" *flags:
+    uv run {{ justfile_directory() }}/scripts/meta.py done {{ if path == "" { flags } else if path =~ "^--" { path + " " + flags } else { "--path " + path + " " + flags } }}
+
 # Run a language workspace's tests: python | rust | cpp [preset=debug|asan|release]
 test lang preset="debug":
     #!/usr/bin/env bash

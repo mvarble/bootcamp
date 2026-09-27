@@ -2,7 +2,7 @@
 
 Every command in this repo is a recipe in the `justfile` at the top of the repository. You run them from anywhere inside the repo, and `just --list` prints them all with a one-line reminder. Most of them take the path of a problem folder, such as `python/exercises/lc0053-maximum-subarray`. You can give that path relative to wherever you are standing; the commands work out the rest. They look at the first part of the path to decide which language they are dealing with, and at the problem's `.meta/exercise.toml` to learn its state.
 
-The commands fall into four groups. Some create and reset problems, some run tests, some measure speed, and two report on your progress. They are described below roughly in the order you would meet them.
+The commands fall into four groups. Some create, reset, and finish problems, some run tests, some measure speed, and the rest report on your progress. They are described below roughly in the order you would meet them.
 
 ## Creating and resetting problems
 
@@ -69,6 +69,10 @@ This only works on deep-tier problems. Where `scale` asks how the running time *
 Each language uses the standard benchmarking tool for that language. Python uses pytest-benchmark, Rust uses Criterion, and C++ uses Google Benchmark with ten repetitions. All three record not just an average but how much the timings vary from run to run. That matters because of the rule this repo applies when comparing: a speedup only counts if the difference between the two averages is larger than the ordinary jitter of a single run. The comparison report that turns these files into tables and figures is `scripts/bench_report.py`, which the `/compare` command runs for you.
 
 ## Keeping track
+
+### `just done [<path>]`
+
+This stops the clock. It marks the problem solved and records how long you took (`minutes`), whether you solved it without hints (`solved_cold`), and the date of the next revisit. If you leave out the path it uses the active exercise, and if you leave out `--minutes` the time is taken as the wall-clock gap since the attempt started. For example, `just done python/exercises/lc0053-maximum-subarray`, `just done --minutes 42`, or `just done python/exercises/lc0053-maximum-subarray --minutes 42`. It refuses unless the problem is in progress, and it never runs your tests: run `just check`, `just stress`, and `just scale` first. The `/done` skill does those three and then calls this.
 
 ### `just due`
 

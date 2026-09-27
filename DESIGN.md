@@ -82,7 +82,7 @@ Say you sit down to practice. You run `just due` to see whether anything is wait
 
 You open the folder's `README.md` and write, in a few sentences, what the problem is asking. You paste the signature and samples into `provided/` and the signature into `mine` and `brute`, then run `just stub <path>`. You add the sample cases and a few edge cases of your own to the test file. You write `brute` first, because it is quick and it gives the stress test something to compare against, then you write `mine`.
 
-You run `just check <path>` until it is green, then `just stress <path>` to throw thousands of random cases at it. When that passes, `just scale <path>` confirms the speed you claimed in your notes. You finish by writing a line or two under "Takeaways" and marking it done, either with `/done` or by running `uv run scripts/meta.py done --path <path>`.
+You run `just check <path>` until it is green, then `just stress <path>` to throw thousands of random cases at it. When that passes, `just scale <path>` confirms the speed you claimed in your notes. You finish by writing a line or two under "Takeaways" and marking it done, either with `/done` or by running `just done <path>` (a thin wrapper over `scripts/meta.py done`, which is the only thing that touches the state file).
 
 That is it. Fifteen minutes of setup-free practice with a record you can trust.
 

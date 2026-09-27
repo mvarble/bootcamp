@@ -17,6 +17,7 @@ just stub python/exercises/lc0053-maximum-subarray    # after pasting the real s
 just test python                              # examples + edge cases + light stress
 just stress python/exercises/lc0053-maximum-subarray  # heavy stress vs brute
 just scale  python/exercises/lc0053-maximum-subarray  # size sweep + slope fit
+just done   python/exercises/lc0053-maximum-subarray  # stop the clock: minutes + revisit date
 just deepen python/exercises/lc0053-maximum-subarray  # opt-in deep tier
 just revisit python/exercises/lc0053-maximum-subarray # archive mine, reset to stub
 just due                                       # what's due for a cold re-solve
