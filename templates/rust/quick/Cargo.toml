@@ -1,0 +1,13 @@
+[package]
+name = "{{slug}}"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+publish.workspace = true
+
+[dependencies]
+rand.workspace = true
+
+[dev-dependencies]
+harness.workspace = true
+proptest.workspace = true

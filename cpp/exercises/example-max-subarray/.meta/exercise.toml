@@ -1,0 +1,13 @@
+# Exercise state. Agents change it only via scripts/meta.py; `tags` is fine to edit by hand.
+source = "lc"
+url = ""
+lang = "cpp"
+tier = "quick"
+status = "solved"
+tags = []
+started = "2026-09-27T12:20:14-07:00"
+minutes = 0
+hints_used = 0
+solved_cold = true
+revisit_on = "2026-10-11"
+revisit_interval_days = 14

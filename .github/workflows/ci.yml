@@ -1,0 +1,74 @@
+name: ci
+
+on:
+  push:
+  pull_request:
+
+env:
+  # Exercises whose status is "attempting" have stub bodies that fail by design;
+  # `just test` leaves them out in CI (pytest collection, cargo --exclude, CMake glob).
+  SKIP_ATTEMPTING: "1"
+
+jobs:
+  python:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@v10
+        with:
+          enable-cache: true
+          cache-dependency-glob: python/uv.lock
+      - uses: extractions/setup-just@v4
+      - run: just test python
+
+  tooling:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24" # node:test strips TypeScript natively from 22.6+/23+
+      - uses: astral-sh/setup-uv@v10
+        with:
+          enable-cache: true
+      - uses: extractions/setup-just@v4
+      - run: just test-tooling
+
+  rust:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: dtolnay/rust-toolchain@master
+        with:
+          toolchain: "1.94.1"
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: rust
+      - uses: astral-sh/setup-uv@v10 # `meta.py attempting` computes the cargo --exclude list
+      - uses: extractions/setup-just@v4
+      - run: just test rust
+
+  cpp:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - run: sudo apt-get update && sudo apt-get install -y ninja-build
+      - uses: actions/cache@v6
+        with:
+          path: cpp/build/debug/_deps
+          key: fetchcontent-debug-${{ runner.os }}-${{ hashFiles('cpp/CMakeLists.txt', 'cpp/cmake/*.cmake') }}
+      - uses: extractions/setup-just@v4
+      - run: just test cpp debug
+
+  cpp-asan:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - run: sudo apt-get update && sudo apt-get install -y ninja-build
+      - uses: actions/cache@v6
+        with:
+          path: cpp/build/asan/_deps
+          key: fetchcontent-asan-${{ runner.os }}-${{ hashFiles('cpp/CMakeLists.txt', 'cpp/cmake/*.cmake') }}
+      - uses: extractions/setup-just@v4
+      - run: just test cpp asan

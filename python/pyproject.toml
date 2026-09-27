@@ -1,0 +1,19 @@
+# uv workspace root (virtual: no [project]) for all Python code.
+# Members: the shared algorithms library, the timing harness, and one package per exercise.
+
+[tool.uv.workspace]
+members = ["algolib", "harness", "exercises/*"]
+
+[dependency-groups]
+dev = [
+    "pytest>=9.1.1",
+    "hypothesis>=6.168.2",
+    "pytest-benchmark>=5.3.0",
+]
+
+[tool.pytest.ini_options]
+# importlib mode: every exercise has tests/conftest.py and tests/test_cases.py,
+# so rootdir-relative module names must not collide on sys.path.
+addopts = ["--import-mode=importlib"]
+testpaths = ["algolib", "harness", "exercises"]
+python_files = ["test_*.py"]

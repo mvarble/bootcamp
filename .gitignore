@@ -1,0 +1,27 @@
+# Agent runtime state
+.agent/active
+.agent/allow-owned-edits
+
+# Prompt logs stay local (in .agent/ and each exercise's .meta/)
+prompts.jsonl
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+.hypothesis/
+.benchmarks/
+
+# Rust
+rust/target/
+
+# C++
+cpp/build/
+CMakeUserPresets.json
+
+# Editors / OS
+.DS_Store
+*.swp
+.idea/
+.vscode/

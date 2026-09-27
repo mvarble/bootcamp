@@ -1,0 +1,23 @@
+# Virtual cargo workspace: the shared algorithms library, the timing harness,
+# and one crate per exercise (package name = slug).
+[workspace]
+resolver = "3"
+members = ["algolib", "harness", "exercises/*"]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.94"
+publish = false
+
+[workspace.dependencies]
+algolib = { path = "algolib" }
+harness = { path = "harness" }
+rand = "0.10.3"
+proptest = "1.11.0"
+# Deep tier only. No plotters/rayon: we keep the JSON estimates, not HTML reports.
+criterion = { version = "0.8.2", default-features = false, features = ["cargo_bench_support"] }
+
+[profile.release]
+# Line tables let `perf` attribute samples to source lines; codegen is unchanged.
+debug = "line-tables-only"
