@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
-      - uses: astral-sh/setup-uv@v10
+      - uses: astral-sh/setup-uv@v10.2.0
         with:
           enable-cache: true
           cache-dependency-glob: python/uv.lock
@@ -28,7 +28,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "24" # node:test strips TypeScript natively from 22.6+/23+
-      - uses: astral-sh/setup-uv@v10
+      - uses: astral-sh/setup-uv@v10.2.0
         with:
           enable-cache: true
       - uses: extractions/setup-just@v4
@@ -44,7 +44,7 @@ jobs:
       - uses: Swatinem/rust-cache@v2
         with:
           workspaces: rust
-      - uses: astral-sh/setup-uv@v10 # `meta.py attempting` computes the cargo --exclude list
+      - uses: astral-sh/setup-uv@v10.2.0 # `meta.py attempting` computes the cargo --exclude list
       - uses: extractions/setup-just@v4
       - run: just test rust
 
