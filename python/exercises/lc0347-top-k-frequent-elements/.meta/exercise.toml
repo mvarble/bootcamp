@@ -1,0 +1,13 @@
+# Exercise state. Agents change it only via scripts/meta.py; `tags` is fine to edit by hand.
+source = "lc"
+url = "https://leetcode.com/problems/top-k-frequent-elements/description/"
+lang = "python"
+tier = "quick"
+status = "reviewed"
+tags = ["bucket-sort"]
+started = "2026-09-27T15:16:41-07:00"
+minutes = 10
+hints_used = 0
+solved_cold = true
+revisit_on = "2026-10-11"
+revisit_interval_days = 14

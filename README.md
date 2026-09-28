@@ -29,5 +29,7 @@ Agent skills: `/start`, `/hint`, `/done`, `/assess`, `/reference`, `/compare`, `
 ## Exercises
 
 <!-- index:start -->
-_No exercises yet._
+| Pattern | Exercise | Lang | Source | Tier | Status | Min | Hints | Cold | Revisit |
+|---|---|---|---|---|---|---|---|---|---|
+| bucket-sort | [lc0347-top-k-frequent-elements](python/exercises/lc0347-top-k-frequent-elements) | python | [lc](https://leetcode.com/problems/top-k-frequent-elements/description/) | quick | reviewed | 10 | 0 | yes | 2026-10-11 |
 <!-- index:end -->
