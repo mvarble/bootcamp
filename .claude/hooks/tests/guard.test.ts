@@ -1,6 +1,6 @@
 /**
- * Ports .claude/hooks/tests/test_hooks.py to the pi guard module.
- * Run: node --test .pi/extensions/bootcamp/tests
+ * The guard module: owned files, the bypass file, and the hint command.
+ * Run: node --test ".claude/hooks/tests/*.test.ts"
  */
 
 import assert from "node:assert/strict";

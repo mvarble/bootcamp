@@ -28,7 +28,7 @@ So an LC `Solution` stub can have any signature. Only `call` knows about it, and
 
 ## Files and ownership
 
-**Owned** files are mine: agents don't write them (AGENTS.md §1, enforced by `.pi/extensions/bootcamp/guard.ts`). All other files are **wiring**.
+**Owned** files are mine: agents don't write them (AGENTS.md §1, enforced by `.claude/hooks/guard.ts`). All other files are **wiring**.
 
 | | Python | Rust | C++ |
 |---|---|---|---|

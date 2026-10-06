@@ -1,6 +1,6 @@
 /**
- * Ports the log_prompt.py half of .claude/hooks/tests/test_hooks.py.
- * Run: node --test .pi/extensions/bootcamp/tests
+ * The prompt log: where a prompt is recorded, and which prompts are skipped.
+ * Run: node --test ".claude/hooks/tests/*.test.ts"
  */
 
 import assert from "node:assert/strict";

@@ -1,12 +1,12 @@
 /**
- * Prompt logging for the bootcamp extension.
+ * Prompt logging for the bootcamp hooks.
  *
  * Appends {ts, session_id, prompt, exercise, status} as one JSON line to
  * <active exercise>/.meta/prompts.jsonl, or to .agent/prompts.jsonl when no
  * exercise is active (.agent/active). The prompt is logged verbatim.
  *
- * Keep this module free of runtime dependencies on pi so `node --test` can
- * exercise it directly.
+ * Keep this module free of side effects on import so `node --test` can
+ * exercise it directly. main.ts calls it from `UserPromptSubmit`.
  */
 
 import * as fs from "node:fs";

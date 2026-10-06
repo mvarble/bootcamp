@@ -1,12 +1,12 @@
 /**
- * Pure guard logic for the bootcamp extension (AGENTS.md §1, §3).
+ * Pure guard logic for the bootcamp hooks (AGENTS.md §1, §3).
  *
  * Owned, inside <lang>/exercises/<slug>/:
  *   README.md at the exercise root; mine.*, brute.*, generate.*, shim.* anywhere;
  *   files under tests/ whose path contains "cases".
  *
- * Keep this module free of runtime dependencies on pi so `node --test` can
- * exercise it directly. The extension wires these functions to `tool_call`.
+ * Keep this module free of side effects on import so `node --test` can
+ * exercise it directly. main.ts wires these functions to `PreToolUse`.
  */
 
 import * as fs from "node:fs";

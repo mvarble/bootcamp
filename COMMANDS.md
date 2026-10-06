@@ -52,7 +52,7 @@ This runs `just test` for all three languages, followed by `test-tooling`.
 
 ### `just test-tooling`
 
-This tests the repo's own machinery rather than your problems. That means the Python scripts behind these commands (the scheduling rules, the templates, the index and the due list) and the pi extension that guards your files and provides the slash commands. You would only run it after changing that machinery.
+This tests the repo's own machinery rather than your problems. That means the Python scripts behind these commands (the scheduling rules, the templates, the index and the due list) and the Claude Code hooks that guard your files and log your prompts. You would only run it after changing that machinery.
 
 ## Measuring speed
 

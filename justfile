@@ -55,10 +55,10 @@ test lang preset="debug":
         echo "unknown lang '{{ lang }}' (python | rust | cpp)" >&2; exit 2 ;;
     esac
 
-# Tests for the harness itself: the pi extension and scripts
+# Tests for the harness itself: the Claude Code hooks and scripts
 test-tooling:
     uv run --no-project --python 3.14 --with pytest==9.1.1 --with tomlkit==0.15.1 pytest -q scripts/tests
-    node --test ".pi/extensions/bootcamp/tests/*.test.ts"
+    node --test ".claude/hooks/tests/*.test.ts"
 
 # Everything: all three workspaces plus tooling
 test-all: (test "python") (test "rust") (test "cpp") test-tooling

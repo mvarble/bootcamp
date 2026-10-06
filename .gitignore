@@ -1,5 +1,6 @@
 # Agent runtime state
 .agent/active
+.agent/hint-lock
 .agent/allow-owned-edits
 
 # Prompt logs stay local (in .agent/ and each exercise's .meta/)

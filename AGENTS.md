@@ -15,7 +15,7 @@ The only exception is when I explicitly ask for that specific edit **in the same
 
 **Why:** these files *are* the exercise. An agent that "helpfully" fixes `mine`, tightens `generate`, or adds a test case turns a solve into a read. That silently invalidates `minutes`, `solved_cold`, and the revisit schedule.
 
-**Enforcement:** `.pi/extensions/bootcamp/guard.ts` (loaded as a pi project extension) blocks the `write` and `edit` tools on these paths unless `.agent/allow-owned-edits` exists, and blocks bash commands that would create the bypass file. The extension cannot see shell writes (`sed -i`, `>`, `cp`, `git checkout`), so this rule binds regardless of what it catches. Never create `.agent/allow-owned-edits` yourself; only I do that.
+**Enforcement:** `.claude/hooks/guard.ts` (run by a Claude Code `PreToolUse` hook, registered in `.claude/settings.json`) blocks the `Write` and `Edit` tools on these paths unless `.agent/allow-owned-edits` exists, and blocks bash commands that would create the bypass file. The hook cannot see shell writes (`sed -i`, `>`, `cp`, `git checkout`), so this rule binds regardless of what it catches. Never create `.agent/allow-owned-edits` yourself; only I do that.
 
 **Not owned (wiring):** `tests/conftest.py`, `tests/test_samples.py`, `tests/suite.rs`, `tests/samples.rs`, `tests/samples.cpp`, `impls.hpp`, `src/lib.rs`, `src/__init__.py`, `__main__.py`, `main.*`, `scale.*`, `bench*`, build files, and everything under `templates/`.
 
@@ -26,7 +26,7 @@ The only exception is when I explicitly ask for that specific edit **in the same
 | Prose (hints, assessments, comparisons, reviews, proposed tests) | `<exercise>/analysis/` |
 | Exercise state | `<exercise>/.meta/exercise.toml`, **only** via `uv run scripts/meta.py …` |
 | Bench data, attempt archives, prompt logs | `<exercise>/.meta/` |
-| Session state and logs outside an exercise | `.agent/` (`active` and `prompts.jsonl` are gitignored) |
+| Session state and logs outside an exercise | `.agent/` (`active`, `hint-lock`, and `prompts.jsonl` are gitignored) |
 | Reference implementation (deep tier, `/reference` only) | `reference.*` |
 | Cross-exercise notes (`/review` only) | `notes/tricks.md`, `notes/patterns/*.md` |
 
@@ -34,7 +34,7 @@ The only exception is when I explicitly ask for that specific edit **in the same
 
 ## 3. Status gates
 
-`uv run scripts/meta.py gate <skill>` checks the gate for the active exercise (`.agent/active`). If it fails, **stop and change nothing**. Each `/name` below is a pi extension command (`.pi/extensions/bootcamp/`) that runs the gate first; a failed gate stops the command before any task text is injected.
+`uv run scripts/meta.py gate <skill>` checks the gate for the active exercise (`.agent/active`). If it fails, **stop and change nothing**. Each `/name` below is a Claude Code skill (`.claude/skills/<name>/SKILL.md`) that runs the gate first; a failed gate aborts the skill before any task text reaches the agent.
 
 | Skill | Requires | Effect |
 |---|---|---|
@@ -71,10 +71,11 @@ Any citation, editorial, or "related problem" must include a URL that was actual
 - `rust/`: a cargo workspace, edition 2024 (`algolib`, `harness`, `exercises/*`).
 - `cpp/`: CMake + CTest + presets `debug|asan|release` (`algolib`, `harness`, `exercises/*`).
 - `templates/<lang>/{quick,deep}/`: exercise templates. See `templates/README.md`.
-- `.pi/extensions/bootcamp/`: the pi project extension. `guard.ts` protects my files,
-  `prompts.ts` logs prompts, `instructions.ts` holds the command task text, and `index.ts`
-  wires the `tool_call`/`input` handlers and the `/start` … `/due` commands. Tests under
-  `tests/` run with `node --test`.
+- `.claude/`: the Claude Code integration. `skills/<name>/SKILL.md` holds the `/start` … `/due`
+  commands. In `hooks/`, `guard.ts` protects my files, `prompts.ts` logs prompts, and `main.ts`
+  is the entry point that `settings.json` registers for the `PreToolUse`, `UserPromptSubmit`,
+  and `Stop` events; it also holds the lock that keeps `/hint` to recording the hint. Tests
+  under `hooks/tests/` run with `node --test`.
 - `scripts/`: `uv run` scripts:
   - `meta.py`: state and gates;
   - `exercise.py`: new, deepen, revisit, stub;

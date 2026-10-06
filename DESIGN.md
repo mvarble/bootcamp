@@ -90,7 +90,7 @@ That is it. Fifteen minutes of setup-free practice with a record you can trust.
 
 Almost everything outside the exercise folders is machinery you will rarely touch.
 
-`templates/` is what `just new` copies from. `scripts/` holds the small programs behind the `just` commands. `.github/` runs the tests on GitHub when you push. `.pi/` is the agent integration. `algolib` and `harness` sit in each language folder. The `example-max-subarray` folders are worked examples (maximum subarray sum, solved in all three languages) that show what a finished problem looks like; they are left out of the index and the due list.
+`templates/` is what `just new` copies from. `scripts/` holds the small programs behind the `just` commands. `.github/` runs the tests on GitHub when you push. `.claude/` is the agent integration. `algolib` and `harness` sit in each language folder. The `example-max-subarray` folders are worked examples (maximum subarray sum, solved in all three languages) that show what a finished problem looks like; they are left out of the index and the due list.
 
 When you want to see everything at once, `just index` rebuilds the table in the main `README.md`, and `just --list` shows every command with a one-line description.
 
